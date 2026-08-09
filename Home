@@ -14,6 +14,7 @@ function bz_render_home_page_shortcode() {
     ob_start();
     ?>
     <!-- Vazirmatn Font -->
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
     <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css" rel="stylesheet" type="text/css" />
 
     <style>
@@ -169,7 +170,7 @@ function bz_render_home_page_shortcode() {
         }
         .bz-card-img-wrap img {
             width: 100%;
-            height: 240px;
+            height: 300px;
             object-fit: cover;
             transition: transform 0.7s;
         }
@@ -195,10 +196,10 @@ function bz_render_home_page_shortcode() {
             scroll-snap-align: center;
         }
 
-        /* برای مقالات ۳ تا در ردیف در دسکتاپ باقی می‌ماند */
+        /* برای مقالات به صورت ستونی و عمودی کشیده در دسکتاپ */
         .bz-post-item {
-            flex: 0 0 calc(33.333% - 14px);
-            min-width: 280px;
+            flex: 0 0 calc(20% - 16px);
+            min-width: 220px;
             scroll-snap-align: start;
         }
 
@@ -207,6 +208,7 @@ function bz_render_home_page_shortcode() {
             position: relative;
             padding: 0 50px;
             z-index: 2;
+            width: 100%;
             max-width: 900px; /* جلوگیری از بزرگ شدن بیش از حد تک‌بنر در دسکتاپ */
             margin: 0 auto;
             display: flex;
@@ -261,7 +263,9 @@ function bz_render_home_page_shortcode() {
             display: flex;
             justify-content: center;
             gap: 12px;
-            margin-top: 16px;
+            margin-top: 12px;
+            position: relative;
+            z-index: 10;
         }
         .bz-dot {
             width: 10px; height: 10px;
@@ -284,9 +288,13 @@ function bz_render_home_page_shortcode() {
         }
         .bz-apps-grid {
             display: flex;
+            flex-direction: row;
             justify-content: center;
+            align-items: center;
             flex-wrap: wrap;
             gap: 24px;
+            width: 100%;
+            margin: 0 auto;
         }
         .bz-app-gate {
             flex: 1 1 calc(25% - 24px);
@@ -407,7 +415,7 @@ function bz_render_home_page_shortcode() {
     <main id="bz-luxury-home">
         <!-- Hero Banner -->
         <div class="bz-banner-wrapper">
-            <img src="https://borzouie.com/wp-content/uploads/2026/01/%D8%A8%D9%86%D8%B1-%D8%A7%D8%B5%D9%84%DB%8C-%D8%B3%D8%A7%DB%8C%D8%AA-%D8%B3%D8%A8%DA%A9-%D8%B2%D9%86%D8%AF%DA%AF%DB%8C_result-1536x624.webp" alt="آکادمی برزویی" class="bz-img-full" fetchpriority="high">
+            <img src="https://borzouie.com/wp-content/uploads/2026/01/%D8%A8%D9%86%D8%B1-%D8%A7%D8%B5%D9%84%DB%8C-%D8%B3%D8%A7%DB%8C%D8%AA-%D8%B3%D8%A8%DA%A9-%D8%B2%D9%86%D8%AF%DA%AF%DB%8C_result-1536x624.webp" alt="آکادمی برزویی" class="bz-img-full" fetchpriority="high" decoding="async">
         </div>
 
         <div class="bz-section-spacer"></div>
@@ -419,12 +427,12 @@ function bz_render_home_page_shortcode() {
                 <div class="bz-scroll-wrapper" id="coursesScroll">
                     <div class="bz-course-item">
                         <a href="https://borzouie.com/product/mezajshenasi/" class="bz-card">
-                            <img src="https://borzouie.com/wp-content/uploads/2026/02/free2.webp" alt="دوره مزاج شناسی" class="bz-img-full" loading="lazy">
+                            <img src="https://borzouie.com/wp-content/uploads/2026/02/free2.webp" alt="دوره مزاج شناسی" class="bz-img-full" loading="lazy" decoding="async">
                         </a>
                     </div>
                     <div class="bz-course-item">
                         <a href="https://borzouie.com/product/sabkezendegi1/" class="bz-card">
-                            <img src="https://borzouie.com/wp-content/uploads/2026/02/free1.webp" alt="دوره سبک زندگی" class="bz-img-full" loading="lazy">
+                            <img src="https://borzouie.com/wp-content/uploads/2026/02/free1.webp" alt="دوره سبک زندگی" class="bz-img-full" loading="lazy" decoding="async">
                         </a>
                     </div>
                 </div>
@@ -447,7 +455,7 @@ function bz_render_home_page_shortcode() {
                     <!-- Windows -->
                     <div class="bz-app-gate" data-href="https://my.uupload.ir/dl/mbAvW9EN" data-type="download">
                         <div class="bz-app-icon-wrap">
-                            <img src="https://borzouie.com/wp-content/uploads/2026/04/win.png" alt="ویندوز" class="bz-app-icon" loading="lazy">
+                            <img src="https://borzouie.com/wp-content/uploads/2026/04/win.png" alt="ویندوز" class="bz-app-icon" loading="lazy" decoding="async">
                         </div>
                         <span class="bz-app-title">نسخه ویندوز</span>
                         <div class="bz-loading-overlay">
@@ -458,7 +466,7 @@ function bz_render_home_page_shortcode() {
                     <!-- Mac -->
                     <div class="bz-app-gate" data-href="https://my.uupload.ir/dl/NdQpmaN0" data-type="download">
                         <div class="bz-app-icon-wrap">
-                            <img src="https://borzouie.com/wp-content/uploads/2026/04/mac.png" alt="مک" class="bz-app-icon" loading="lazy">
+                            <img src="https://borzouie.com/wp-content/uploads/2026/04/mac.png" alt="مک" class="bz-app-icon" loading="lazy" decoding="async">
                         </div>
                         <span class="bz-app-title">نسخه مک‌بوک</span>
                         <div class="bz-loading-overlay">
@@ -469,7 +477,7 @@ function bz_render_home_page_shortcode() {
                     <!-- Android -->
                     <div class="bz-app-gate" data-href="https://my.uupload.ir/dl/kjXEKeRX" data-type="download">
                         <div class="bz-app-icon-wrap">
-                            <img src="https://borzouie.com/wp-content/uploads/2026/04/android.png" alt="اندروید" class="bz-app-icon" loading="lazy">
+                            <img src="https://borzouie.com/wp-content/uploads/2026/04/android.png" alt="اندروید" class="bz-app-icon" loading="lazy" decoding="async">
                         </div>
                         <span class="bz-app-title">نسخه اندروید</span>
                         <div class="bz-loading-overlay">
@@ -480,7 +488,7 @@ function bz_render_home_page_shortcode() {
                     <!-- Web / iOS -->
                     <div class="bz-app-gate" data-href="https://app.borzouie.com" data-type="web">
                         <div class="bz-app-icon-wrap">
-                            <img src="https://borzouie.com/wp-content/uploads/2026/04/ios.png" alt="تحت وب" class="bz-app-icon" loading="lazy">
+                            <img src="https://borzouie.com/wp-content/uploads/2026/04/ios.png" alt="تحت وب" class="bz-app-icon" loading="lazy" decoding="async">
                         </div>
                         <span class="bz-app-title">نسخه وب / iOS</span>
                         <div class="bz-loading-overlay">
@@ -519,7 +527,7 @@ function bz_render_home_page_shortcode() {
                         <div class="bz-post-item">
                             <a href="<?php the_permalink(); ?>" class="bz-card">
                                 <div class="bz-card-img-wrap">
-                                    <img src="<?php echo esc_url( $thumb_url ); ?>" alt="<?php echo esc_attr( get_the_title() ); ?>" loading="lazy">
+                                    <img src="<?php echo esc_url( $thumb_url ); ?>" alt="<?php echo esc_attr( get_the_title() ); ?>" loading="lazy" decoding="async">
                                 </div>
                                 <div class="bz-post-content">
                                     <h3 class="bz-post-title"><?php the_title(); ?></h3>
@@ -546,10 +554,10 @@ function bz_render_home_page_shortcode() {
         <div class="bz-container bz-reveal">
             <div class="bz-dual-grid">
                 <a href="<?php echo esc_url( home_url( '/consultation' ) ); ?>" class="bz-banner-clean">
-                    <img src="https://borzouie.com/wp-content/uploads/2026/02/consultaion3.webp" alt="مشاوره" class="bz-img-full" loading="lazy">
+                    <img src="https://borzouie.com/wp-content/uploads/2026/02/consultaion3.webp" alt="مشاوره" class="bz-img-full" loading="lazy" decoding="async">
                 </a>
                 <a href="<?php echo esc_url( home_url( '/form' ) ); ?>" class="bz-banner-clean">
-                    <img src="https://borzouie.com/wp-content/uploads/2026/02/form-banne2r.webp" alt="فرم" class="bz-img-full" loading="lazy">
+                    <img src="https://borzouie.com/wp-content/uploads/2026/02/form-banne2r.webp" alt="فرم" class="bz-img-full" loading="lazy" decoding="async">
                 </a>
             </div>
         </div>
@@ -559,7 +567,7 @@ function bz_render_home_page_shortcode() {
         <!-- Full Width Banners -->
         <div class="bz-banner-wrapper">
             <a href="https://borzouie-business.ir/" target="_blank" rel="noopener">
-                <img src="https://borzouie.com/wp-content/uploads/2026/08/1000191383.webp" alt="بیزینس" class="bz-img-full" loading="lazy">
+                <img src="https://borzouie.com/wp-content/uploads/2026/08/1000191383.webp" alt="بیزینس" class="bz-img-full" loading="lazy" decoding="async">
             </a>
         </div>
 
@@ -567,7 +575,7 @@ function bz_render_home_page_shortcode() {
 
         <div class="bz-banner-wrapper">
             <a href="https://borzouie.ir/" target="_blank" rel="noopener">
-                <img src="https://borzouie.com/wp-content/uploads/2026/02/organic-products-main-page.webp" alt="ارگانیک" class="bz-img-full" loading="lazy">
+                <img src="https://borzouie.com/wp-content/uploads/2026/02/organic-products-main-page.webp" alt="ارگانیک" class="bz-img-full" loading="lazy" decoding="async">
             </a>
         </div>
         
@@ -587,8 +595,8 @@ function bz_render_home_page_shortcode() {
                     preloader.style.visibility = 'hidden';
                     setTimeout(() => preloader.style.display = 'none', 700);
                 };
-                window.addEventListener('load', hidePreloader);
-                setTimeout(hidePreloader, 4000);
+                // Hide preloader extremely fast (300ms after DOMContentLoaded) to maximize PageSpeed Score and make the experience instant
+                setTimeout(hidePreloader, 300);
             }
 
             // ===== REVEAL ANIMATION =====
@@ -617,18 +625,14 @@ function bz_render_home_page_shortcode() {
                     if (index >= slides.length) index = 0; // برگشت به اول اگر به آخر رسید
                     currentSlideIndex = index;
                     
-                    const targetSlide = slides[currentSlideIndex];
-                    if (targetSlide) {
-                        const containerRect = scrollWrapper.getBoundingClientRect();
-                        const slideRect = targetSlide.getBoundingClientRect();
-                        const relativeLeft = slideRect.left - containerRect.left + scrollWrapper.scrollLeft;
-                        const targetLeft = relativeLeft - (containerRect.width - slideRect.width) / 2;
+                    const slideWidth = scrollWrapper.clientWidth;
+                    const gap = 20;
+                    const targetLeft = -index * (slideWidth + gap);
 
-                        scrollWrapper.scrollTo({
-                            left: targetLeft,
-                            behavior: 'smooth'
-                        });
-                    }
+                    scrollWrapper.scrollTo({
+                        left: targetLeft,
+                        behavior: 'smooth'
+                    });
                     
                     updateActiveDot(currentSlideIndex);
                 }
