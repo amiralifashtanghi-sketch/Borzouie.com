@@ -38,7 +38,7 @@ function bz_render_home_page_shortcode() {
             --bz-shadow-lg: 0 20px 40px rgba(0,0,0,0.08);
             --bz-radius: 16px;
             --bz-transition: all 0.35s cubic-bezier(0.25,0.8,0.25,1);
-            --section-gap: 60px;
+            --section-gap: 30px;
             --soft-transition: all 0.8s cubic-bezier(0.22, 1, 0.36, 1);
         }
 
@@ -98,7 +98,7 @@ function bz_render_home_page_shortcode() {
             width: 100%;
             max-width: 1200px;
             margin: 0 auto;
-            padding: 70px 20px;
+            padding: 35px 20px;
         }
         .bz-section-spacer {
             height: var(--section-gap);
@@ -169,7 +169,7 @@ function bz_render_home_page_shortcode() {
         }
         .bz-card-img-wrap img {
             width: 100%;
-            height: 160px;
+            height: 240px;
             object-fit: cover;
             transition: transform 0.7s;
         }
@@ -209,6 +209,13 @@ function bz_render_home_page_shortcode() {
             z-index: 2;
             max-width: 900px; /* جلوگیری از بزرگ شدن بیش از حد تک‌بنر در دسکتاپ */
             margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        .bz-courses-slider #coursesScroll {
+            width: 100%;
         }
         @media (max-width: 768px) {
             .bz-courses-slider { padding: 0 10px; }
@@ -276,11 +283,15 @@ function bz_render_home_page_shortcode() {
             border-bottom: 1px solid rgba(11,28,46,0.05);
         }
         .bz-apps-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
             gap: 24px;
         }
         .bz-app-gate {
+            flex: 1 1 calc(25% - 24px);
+            max-width: 270px;
+            min-width: 220px;
             background: var(--bz-surface);
             border: 1px solid var(--bz-border);
             padding: 30px 20px;
@@ -375,10 +386,11 @@ function bz_render_home_page_shortcode() {
         .bz-reveal.visible { opacity: 1; transform: translateY(0); }
 
         /* ========== RESPONSIVE ========== */
-        @media (max-width: 992px) { .bz-container { padding: 60px 18px; } }
+        @media (max-width: 992px) { .bz-container { padding: 30px 18px; } }
         @media (max-width: 768px) {
-            .bz-container { padding: 50px 16px; }
-            .bz-apps-grid { grid-template-columns: repeat(2, 1fr); gap: 16px; }
+            .bz-container { padding: 25px 16px; }
+            .bz-apps-grid { gap: 16px; }
+            .bz-app-gate { flex: 1 1 calc(50% - 16px); min-width: 140px; }
             .bz-dual-grid { grid-template-columns: 1fr; gap: 20px; }
             .bz-section-title { font-size: 1.6rem; }
             .bz-post-item { flex: 0 0 100%; min-width: 100%; } /* مقالات در موبایل تک ردیفه */
@@ -429,7 +441,7 @@ function bz_render_home_page_shortcode() {
 
         <!-- Application Downloads (with Blur Overlay) -->
         <div class="bz-apps-wrapper">
-            <div class="bz-container bz-reveal" style="padding-top: 70px; padding-bottom: 70px;">
+            <div class="bz-container bz-reveal" style="padding-top: 35px; padding-bottom: 35px;">
                 <h2 class="bz-section-title">دریافت اپلیکیشن‌های آکادمی</h2>
                 <div class="bz-apps-grid" id="appsGrid">
                     <!-- Windows -->
@@ -511,7 +523,7 @@ function bz_render_home_page_shortcode() {
                                 </div>
                                 <div class="bz-post-content">
                                     <h3 class="bz-post-title"><?php the_title(); ?></h3>
-                                    <p class="bz-post-excerpt"><?php echo esc_html( wp_trim_words( get_the_excerpt(), 14, '...' ) ); ?></p>
+                                    <p class="bz-post-excerpt"><?php echo esc_html( wp_trim_words( get_the_excerpt(), 22, '...' ) ); ?></p>
                                     <div class="bz-post-meta">
                                         <span><?php echo esc_html( get_the_date() ); ?></span>
                                     </div>
@@ -561,7 +573,6 @@ function bz_render_home_page_shortcode() {
         
         <!-- فاصله خالی پایان بنرها با فوتر -->
         <div class="bz-section-spacer"></div>
-        <div class="bz-section-spacer"></div>
 
     </main>
 
@@ -606,11 +617,18 @@ function bz_render_home_page_shortcode() {
                     if (index >= slides.length) index = 0; // برگشت به اول اگر به آخر رسید
                     currentSlideIndex = index;
                     
-                    slides[currentSlideIndex].scrollIntoView({
-                        behavior: 'smooth',
-                        inline: 'center',
-                        block: 'nearest'
-                    });
+                    const targetSlide = slides[currentSlideIndex];
+                    if (targetSlide) {
+                        const containerRect = scrollWrapper.getBoundingClientRect();
+                        const slideRect = targetSlide.getBoundingClientRect();
+                        const relativeLeft = slideRect.left - containerRect.left + scrollWrapper.scrollLeft;
+                        const targetLeft = relativeLeft - (containerRect.width - slideRect.width) / 2;
+
+                        scrollWrapper.scrollTo({
+                            left: targetLeft,
+                            behavior: 'smooth'
+                        });
+                    }
                     
                     updateActiveDot(currentSlideIndex);
                 }
@@ -624,7 +642,7 @@ function bz_render_home_page_shortcode() {
                     stopAutoScroll();
                     autoScrollTimer = setInterval(() => {
                         scrollToIndex(currentSlideIndex + 1);
-                    }, 3000); // هر ۳ ثانیه
+                    }, 5000); // هر ۵ ثانیه
                 }
 
                 function stopAutoScroll() {
