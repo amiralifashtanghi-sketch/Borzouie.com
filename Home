@@ -186,6 +186,7 @@ function bz_render_home_page_shortcode() {
         .bz-scroll-wrapper {
             display: flex;
             width: 100%;
+            align-items: flex-start;
             overflow-x: auto;
             scroll-snap-type: x mandatory;
             gap: 20px;
@@ -268,7 +269,7 @@ function bz_render_home_page_shortcode() {
             display: flex;
             justify-content: center;
             gap: 12px;
-            margin-top: 5px;
+            margin-top: 20px;
             position: relative;
             z-index: 10;
         }
@@ -716,6 +717,11 @@ function bz_render_home_page_shortcode() {
                         updateActiveDot(activeIdx);
                     }, 100);
                 }, { passive: true });
+
+                // Initialize horizontal layout position immediately
+                setTimeout(() => {
+                    scrollToIndex(0);
+                }, 150);
             }
 
             // ===== APPS BLUR OVERLAY =====
