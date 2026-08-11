@@ -161,6 +161,19 @@ function deleteLastBotMessage($chat_id, array &$state): void
     }
 }
 
+function privateHelpText(): string
+{
+    return "سلام دوست عزیز! خوش آمدید 🌹\n\n"
+        . "این ربات برای بازی گروهی «دوست‌های صمیمی» طراحی شده است و در چت شخصی (پیوی) قابل بازی نیست.\n\n"
+        . "🎮 **چگونه بازی را شروع کنیم؟**\n"
+        . "1. ابتدا ربات را به گروه خود اضافه کنید.\n"
+        . "2. حتماً ربات را در گروه **مدیر (ادمین کل)** کنید تا بتواند پیام‌ها را دریافت و مدیریت کند.\n"
+        . "3. در گروه دستور `/start` یا `/help` را بفرستید تا دکمه‌های بازی و راهنما برای شما نمایش داده شوند.\n\n"
+        . "موفق باشید\n"
+        . "سجاد برزویی\n"
+        . "@sabkezendegi14";
+}
+
 function helpText(): string
 {
     return "سلام دوست های عزیزم🌹\n\n"
@@ -283,6 +296,38 @@ function denyAdminAction($callback_id = null, $chat_id = null): void
     }
 }
 
+// Auto Webhook Setup via GET Request
+if (isset($_GET['set_webhook'])) {
+    header('Content-Type: text/html; charset=utf-8');
+
+    // Determine the current URL of the script automatically
+    $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' || ($_SERVER['SERVER_PORT'] ?? 80) == 443) ? "https://" : "http://";
+    $host = $_SERVER['HTTP_HOST'] ?? 'localhost';
+    $uri = $_SERVER['REQUEST_URI'] ?? '';
+    // Strip query string
+    $uri_clean = explode('?', $uri)[0];
+    $script_url = $protocol . $host . $uri_clean;
+
+    echo "<h2>تنظیم خودکار وب‌هووک ربات بله (Auto Webhook Setup)</h2>";
+    echo "<p>در حال تلاش برای تنظیم وب‌هووک روی آدرس زیر:</p>";
+    echo "<code>" . htmlspecialchars($script_url) . "</code><br><br>";
+
+    $res = apiRequest('setWebhook', [
+        'url' => $script_url
+    ]);
+
+    if ($res && isset($res['ok']) && $res['ok'] === true) {
+        echo "<h3 style='color: green;'>✅ وب‌هووک با موفقیت تنظیم شد!</h3>";
+        echo "<pre>" . htmlspecialchars(json_encode($res, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT)) . "</pre>";
+    } else {
+        echo "<h3 style='color: red;'>❌ خطا در تنظیم وب‌هووک!</h3>";
+        echo "<p>پاسخ دریافتی از سرور بله:</p>";
+        echo "<pre>" . htmlspecialchars(json_encode($res, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT)) . "</pre>";
+        echo "<p>نکته: مطمئن شوید توکن ربات (TOKEN) در فایل <code>game.php</code> درست وارد شده است و آدرس سایت شما دارای گواهینامه SSL (https) معتبر می‌باشد.</p>";
+    }
+    exit;
+}
+
 $raw = file_get_contents('php://input');
 $UPDATE = json_decode($raw ?: '', true);
 
@@ -327,7 +372,7 @@ if ($chat_id === null) {
 if (!inGroup($chat_type)) {
     apiRequest('sendMessage', [
         'chat_id' => $chat_id,
-        'text' => 'این ربات فقط در گروه‌ها فعال است.',
+        'text' => privateHelpText(),
     ]);
     exit;
 }
