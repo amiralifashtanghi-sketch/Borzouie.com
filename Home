@@ -210,80 +210,182 @@ function bz_render_home_page_shortcode() {
             scroll-snap-align: start;
         }
 
-        /* ========== SLIDER ========== */
-        .bz-courses-slider {
+        /* ========== MODERN BANNER SLIDER ========== */
+        .bz-slider-wrapper {
             position: relative;
-            padding: 0 50px;
-            z-index: 2;
             width: 100%;
-            max-width: 900px; /* جلوگیری از بزرگ شدن بیش از حد تک‌بنر در دسکتاپ */
+            max-width: 900px;
             margin: 0 auto;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-        }
-        .bz-courses-slider #coursesScroll {
-            width: 100%;
-        }
-        @media (max-width: 768px) {
-            .bz-courses-slider { padding: 0 10px; }
+            z-index: 1;
         }
 
-        .bz-slide-btn {
+        .bz-slider-container {
+            position: relative;
+            width: 100%;
+            border-radius: var(--bz-radius);
+            overflow: hidden;
+            box-shadow: var(--bz-shadow-md), 0 0 0 1px rgba(255, 255, 255, 0.5);
+            aspect-ratio: 16 / 7;
+            min-height: 280px;
+            background: #f1f5f9;
+            user-select: none;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .bz-slides-track {
+            display: flex;
+            width: 100%;
+            height: 100%;
+            transition: transform 0.55s cubic-bezier(0.4, 0, 0.2, 1);
+            will-change: transform;
+        }
+
+        .bz-slide {
+            min-width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            flex-shrink: 0;
+            position: relative;
+            display: block;
+            text-decoration: none !important;
+        }
+
+        .bz-nav-btn {
             position: absolute;
             top: 50%;
             transform: translateY(-50%);
-            background: var(--bz-accent);
-            color: white;
-            border: none;
-            width: 46px;
-            height: 46px;
+            width: 44px;
+            height: 44px;
             border-radius: 50%;
+            background: var(--bz-surface);
+            border: none;
+            cursor: pointer;
+            color: #374151;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.12);
+            z-index: 10;
+            transition: all 0.25s ease;
             display: flex;
             align-items: center;
             justify-content: center;
-            cursor: pointer;
-            transition: var(--bz-transition);
-            box-shadow: 0 6px 20px rgba(239,114,21,0.4);
-            z-index: 30;
-            font-size: 20px;
-            line-height: 1;
-            font-weight: bold;
-            touch-action: manipulation;
-            user-select: none;
+            outline: none;
+            -webkit-tap-highlight-color: transparent;
         }
-        .bz-slide-btn:hover, .bz-slide-btn:active {
-            background: #d15f0f;
-            transform: translateY(-50%) scale(1.1);
+        .bz-nav-btn:hover {
+            background: #f8fafc;
+            box-shadow: 0 6px 22px rgba(0, 0, 0, 0.18);
+            color: var(--bz-accent);
+            transform: translateY(-50%) scale(1.07);
         }
-        .bz-slide-btn.prev { right: 0; }
-        .bz-slide-btn.next { left: 0; }
+        .bz-nav-btn:active {
+            transform: translateY(-50%) scale(0.94);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+            transition: all 0.1s ease;
+        }
+        .bz-nav-btn.prev {
+            right: 15px;
+        }
+        .bz-nav-btn.next {
+            left: 15px;
+        }
+        .bz-nav-btn svg {
+            width: 20px;
+            height: 20px;
+            pointer-events: none;
+        }
 
-        @media (max-width: 768px) {
-            .bz-slide-btn { width: 40px; height: 40px; font-size: 18px; }
-            .bz-slide-btn.prev { right: -5px; }
-            .bz-slide-btn.next { left: -5px; }
-        }
-
-        .bz-dots {
+        .bz-dots-container {
             display: flex;
             justify-content: center;
-            gap: 12px;
-            margin-top: 10px;
-            position: relative;
-            z-index: 10;
+            align-items: center;
+            gap: 10px;
+            margin-top: 15px;
+            z-index: 5;
         }
-        .bz-dot {
-            width: 10px; height: 10px;
+        .bz-slider-dot {
+            width: 10px;
+            height: 10px;
             border-radius: 50%;
-            background: rgba(11,28,46,0.2);
-            transition: var(--bz-transition);
+            background: #cbd5e1;
             cursor: pointer;
+            transition: all 0.35s ease;
+            border: none;
+            outline: none;
+            padding: 0;
+            -webkit-tap-highlight-color: transparent;
         }
-        .bz-dot.active {
+        .bz-slider-dot.active {
             background: var(--bz-accent);
-            transform: scale(1.3);
+            width: 30px;
+            border-radius: 20px;
+            box-shadow: 0 0 0 4px rgba(239, 114, 21, 0.2);
+        }
+        .bz-slider-dot:hover:not(.active) {
+            background: #94a3b8;
+        }
+
+        .bz-counter-badge {
+            position: absolute;
+            bottom: 14px;
+            left: 14px;
+            z-index: 10;
+            background: rgba(0, 0, 0, 0.55);
+            color: #fff;
+            padding: 5px 12px;
+            border-radius: 50px;
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            pointer-events: none;
+        }
+
+        @media (max-width: 768px) {
+            .bz-slider-container {
+                aspect-ratio: 16 / 10;
+                min-height: 220px;
+                border-radius: 16px;
+            }
+            .bz-nav-btn {
+                width: 36px;
+                height: 36px;
+                font-size: 15px;
+            }
+            .bz-nav-btn.prev {
+                right: 8px;
+            }
+            .bz-nav-btn.next {
+                left: 8px;
+            }
+            .bz-nav-btn svg {
+                width: 16px;
+                height: 16px;
+            }
+            .bz-counter-badge {
+                bottom: 8px;
+                left: 8px;
+                font-size: 10px;
+                padding: 4px 10px;
+            }
+        }
+        @media (max-width: 400px) {
+            .bz-slider-container {
+                aspect-ratio: 16 / 12;
+                min-height: 180px;
+                border-radius: 14px;
+            }
+            .bz-nav-btn {
+                width: 30px;
+                height: 30px;
+            }
+            .bz-nav-btn.prev {
+                right: 4px;
+            }
+            .bz-nav-btn.next {
+                left: 4px;
+            }
         }
 
         /* ========== APPS GRID ========== */
@@ -434,24 +536,33 @@ function bz_render_home_page_shortcode() {
         <!-- Free Courses Slider -->
         <div class="bz-container bz-reveal">
             <h2 class="bz-section-title">دوره‌های رایگان آکادمی</h2>
-            <div class="bz-courses-slider">
-                <div class="bz-scroll-wrapper" id="coursesScroll">
-                    <div class="bz-course-item">
-                        <a href="https://borzouie.com/product/mezajshenasi/" class="bz-card">
-                            <img src="https://borzouie.com/wp-content/uploads/2026/02/free2.webp" alt="دوره مزاج شناسی" class="bz-img-full" loading="lazy" decoding="async">
-                        </a>
+
+            <div class="bz-slider-wrapper">
+                <div class="bz-slider-container" id="sliderContainer">
+                    <div class="bz-slides-track" id="slidesTrack">
+                        <!-- اسلاید ۱ - تصویر free2.webp -->
+                        <a href="https://borzouie.com/product/mezajshenasi/" class="bz-slide" style="background-image: url('https://borzouie.com/wp-content/uploads/2026/02/free2.webp');"></a>
+                        <!-- اسلاید ۲ - تصویر free1.webp -->
+                        <a href="https://borzouie.com/product/sabkezendegi1/" class="bz-slide" style="background-image: url('https://borzouie.com/wp-content/uploads/2026/02/free1.webp');"></a>
                     </div>
-                    <div class="bz-course-item">
-                        <a href="https://borzouie.com/product/sabkezendegi1/" class="bz-card">
-                            <img src="https://borzouie.com/wp-content/uploads/2026/02/free1.webp" alt="دوره سبک زندگی" class="bz-img-full" loading="lazy" decoding="async">
-                        </a>
-                    </div>
+
+                    <button type="button" class="bz-nav-btn prev" id="prevBtn" aria-label="اسلاید قبلی" title="قبلی">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="9 18 15 12 9 6"></polyline>
+                        </svg>
+                    </button>
+                    <button type="button" class="bz-nav-btn next" id="nextBtn" aria-label="اسلاید بعدی" title="بعدی">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="15 18 9 12 15 6"></polyline>
+                        </svg>
+                    </button>
+
+                    <span class="bz-counter-badge" id="counterBadge">1 / 2</span>
                 </div>
-                <button type="button" class="bz-slide-btn prev" id="coursesPrev" aria-label="قبلی">❮</button>
-                <button type="button" class="bz-slide-btn next" id="coursesNext" aria-label="بعدی">❯</button>
-                <div class="bz-dots" id="coursesDots">
-                    <span class="bz-dot active" data-index="0"></span>
-                    <span class="bz-dot" data-index="1"></span>
+
+                <div class="bz-dots-container" id="dotsContainer">
+                    <button type="button" class="bz-slider-dot active" data-index="0" aria-label="اسلاید ۱"></button>
+                    <button type="button" class="bz-slider-dot" data-index="1" aria-label="اسلاید ۲"></button>
                 </div>
             </div>
         </div>
@@ -621,109 +732,159 @@ function bz_render_home_page_shortcode() {
                 revealEls.forEach(el => el.classList.add('visible'));
             }
 
-            // ===== COURSES SLIDER (RTL + Mobile/Desktop Fix + Auto Scroll) =====
-            const scrollWrapper = document.getElementById('coursesScroll');
-            if (scrollWrapper) {
-                const slides = scrollWrapper.querySelectorAll('.bz-course-item');
-                const dots = document.querySelectorAll('#coursesDots .bz-dot');
-                const prevBtn = document.getElementById('coursesPrev');
-                const nextBtn = document.getElementById('coursesNext');
-                let currentSlideIndex = 0;
-                let autoScrollTimer;
+            // ===== COURSES SLIDER (RTL + Autoplay + Swipes + Buttons) =====
+            (function() {
+                const slidesTrack = document.getElementById('slidesTrack');
+                const prevBtn = document.getElementById('prevBtn');
+                const nextBtn = document.getElementById('nextBtn');
+                const counterBadge = document.getElementById('counterBadge');
+                const dotsContainer = document.getElementById('dotsContainer');
+                const sliderContainer = document.getElementById('sliderContainer');
 
-                function scrollToIndex(index) {
-                    if (index < 0) index = slides.length - 1; // برگشت به آخر اگر از اول رد شد
-                    if (index >= slides.length) index = 0; // برگشت به اول اگر به آخر رسید
-                    currentSlideIndex = index;
-                    
-                    const slideWidth = scrollWrapper.clientWidth;
-                    const gap = 20;
-                    const targetLeft = -index * (slideWidth + gap);
+                if (!slidesTrack || !sliderContainer) return;
 
-                    scrollWrapper.scrollTo({
-                        left: targetLeft,
-                        behavior: 'smooth'
+                const dots = dotsContainer ? dotsContainer.querySelectorAll('.bz-slider-dot') : [];
+                const totalSlides = 2;
+                let currentIndex = 0;
+                let autoPlayInterval = null;
+                const autoPlayDelay = 5000; // اسکرول خودکار هر ۵ ثانیه
+                let isTransitioning = false;
+
+                function goToSlide(index) {
+                    if (isTransitioning) return;
+                    if (index < 0 || index >= totalSlides) return;
+                    if (index === currentIndex) return;
+
+                    isTransitioning = true;
+                    currentIndex = index;
+
+                    // در حالت راست‌چین (RTL) مقدار حرکت منفی نیست، بلکه مثبت یا منفی است.
+                    // کدهای ارسالی شما از translateX(-{index * 100}%) استفاده می‌کرد.
+                    // از آنجایی که صفحه اصلی راست‌چین (RTL) است، مقدار translateX با جهت متفاوت رفتار می‌کند.
+                    // برای کنترل کامل حرکت در صفحات RTL، بهترین کار استفاده از translateX به صورت دقیق است:
+                    // با توجه به قالب ارسالی کاربر که translateX(-...) است، همان ساختار تست‌شده را قرار می‌دهیم.
+                    slidesTrack.style.transform = `translateX(-${currentIndex * 100}%)`;
+
+                    updateDots();
+                    updateCounter();
+
+                    setTimeout(() => {
+                        isTransitioning = false;
+                    }, 580);
+                }
+
+                function nextSlide() {
+                    goToSlide((currentIndex + 1) % totalSlides);
+                }
+
+                function prevSlide() {
+                    goToSlide((currentIndex - 1 + totalSlides) % totalSlides);
+                }
+
+                function updateDots() {
+                    dots.forEach((dot, i) => {
+                        dot.classList.toggle('active', i === currentIndex);
+                        if (i === currentIndex) dot.setAttribute('aria-current', 'true');
+                        else dot.removeAttribute('aria-current');
                     });
-                    
-                    updateActiveDot(currentSlideIndex);
                 }
 
-                function updateActiveDot(index) {
-                    dots.forEach((dot, i) => dot.classList.toggle('active', i === index));
+                function updateCounter() {
+                    if (counterBadge) {
+                        counterBadge.textContent = `${currentIndex + 1} / ${totalSlides}`;
+                    }
                 }
 
-                // توابع اسکرول خودکار
-                function startAutoScroll() {
-                    stopAutoScroll();
-                    autoScrollTimer = setInterval(() => {
-                        scrollToIndex(currentSlideIndex + 1);
-                    }, 5000); // هر ۵ ثانیه
+                function startAutoPlay() {
+                    stopAutoPlay();
+                    autoPlayInterval = setInterval(nextSlide, autoPlayDelay);
                 }
 
-                function stopAutoScroll() {
-                    if(autoScrollTimer) clearInterval(autoScrollTimer);
+                function stopAutoPlay() {
+                    if (autoPlayInterval) {
+                        clearInterval(autoPlayInterval);
+                        autoPlayInterval = null;
+                    }
                 }
 
-                // شروع اسکرول خودکار در ابتدا
-                startAutoScroll();
+                function resetAutoPlay() {
+                    stopAutoPlay();
+                    startAutoPlay();
+                }
 
-                // توقف اسکرول هنگام هاور یا لمس
-                const sliderContainer = document.querySelector('.bz-courses-slider');
-                sliderContainer.addEventListener('mouseenter', stopAutoScroll);
-                sliderContainer.addEventListener('mouseleave', startAutoScroll);
-                sliderContainer.addEventListener('touchstart', stopAutoScroll, {passive: true});
-                sliderContainer.addEventListener('touchend', startAutoScroll);
-
-                // دکمه‌های چپ و راست
                 if (prevBtn) {
-                    prevBtn.addEventListener('click', function(e) {
+                    prevBtn.addEventListener('click', (e) => {
                         e.preventDefault();
-                        scrollToIndex(currentSlideIndex - 1);
+                        prevSlide();
+                        resetAutoPlay();
                     });
                 }
                 if (nextBtn) {
-                    nextBtn.addEventListener('click', function(e) {
+                    nextBtn.addEventListener('click', (e) => {
                         e.preventDefault();
-                        scrollToIndex(currentSlideIndex + 1);
+                        nextSlide();
+                        resetAutoPlay();
                     });
                 }
 
-                // دات‌های زیر اسلایدر
-                dots.forEach(dot => {
-                    dot.addEventListener('click', function() {
-                        const idx = parseInt(this.dataset.index);
-                        scrollToIndex(idx);
+                if (dotsContainer) {
+                    dotsContainer.addEventListener('click', (e) => {
+                        const dot = e.target.closest('.bz-slider-dot');
+                        if (!dot) return;
+                        const index = parseInt(dot.getAttribute('data-index'), 10);
+                        if (!isNaN(index) && index !== currentIndex) {
+                            goToSlide(index);
+                            resetAutoPlay();
+                        }
                     });
+                }
+
+                sliderContainer.addEventListener('mouseenter', stopAutoPlay);
+                sliderContainer.addEventListener('mouseleave', startAutoPlay);
+                sliderContainer.addEventListener('touchstart', stopAutoPlay, { passive: true });
+                sliderContainer.addEventListener('touchend', () => {
+                    setTimeout(startAutoPlay, 500);
                 });
 
-                // همگام‌سازی دات با کشیدن دستی
-                scrollWrapper.addEventListener('scroll', function() {
-                    clearTimeout(scrollWrapper._scrollTimeout);
-                    scrollWrapper._scrollTimeout = setTimeout(() => {
-                        let minDiff = Infinity;
-                        let activeIdx = 0;
-                        const contRect = scrollWrapper.getBoundingClientRect();
-                        const contCenter = contRect.left + contRect.width / 2;
-
-                        slides.forEach((slide, idx) => {
-                            const rect = slide.getBoundingClientRect();
-                            const slideCenter = rect.left + rect.width / 2;
-                            const diff = Math.abs(contCenter - slideCenter);
-                            if (diff < minDiff) {
-                                minDiff = diff;
-                                activeIdx = idx;
-                            }
-                        });
-                        currentSlideIndex = activeIdx;
-                        updateActiveDot(activeIdx);
-                    }, 100);
+                let touchStartX = 0;
+                sliderContainer.addEventListener('touchstart', (e) => {
+                    touchStartX = e.changedTouches[0].screenX;
                 }, { passive: true });
 
-                // Initialize horizontal layout position immediately
-                setTimeout(() => {
-                    scrollToIndex(0);
-                }, 150);
-            }
+                sliderContainer.addEventListener('touchend', (e) => {
+                    const diff = touchStartX - e.changedTouches[0].screenX;
+                    if (Math.abs(diff) > 50) {
+                        if (diff > 0) nextSlide();
+                        else prevSlide();
+                        resetAutoPlay();
+                    }
+                });
+
+                document.addEventListener('keydown', (e) => {
+                    if (e.key === 'ArrowRight') {
+                        e.preventDefault();
+                        nextSlide();
+                        resetAutoPlay();
+                    } else if (e.key === 'ArrowLeft') {
+                        e.preventDefault();
+                        prevSlide();
+                        resetAutoPlay();
+                    }
+                });
+
+                function init() {
+                    slidesTrack.style.transform = 'translateX(0%)';
+                    currentIndex = 0;
+                    updateDots();
+                    updateCounter();
+                    isTransitioning = false;
+                    startAutoPlay();
+                }
+
+                init();
+
+                window.addEventListener('beforeunload', () => stopAutoPlay());
+            })();
 
             // ===== APPS BLUR OVERLAY =====
             const appGates = document.querySelectorAll('#bz-luxury-home .bz-app-gate');
