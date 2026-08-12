@@ -188,9 +188,10 @@ function bz_render_home_page_shortcode() {
             width: 100%;
             align-items: flex-start;
             overflow-x: auto;
+            overflow-y: hidden;
             scroll-snap-type: x mandatory;
             gap: 20px;
-            padding: 10px 0 20px 0;
+            padding: 10px 0 10px 0;
             scrollbar-width: none;
             -webkit-overflow-scrolling: touch;
         }
@@ -269,7 +270,7 @@ function bz_render_home_page_shortcode() {
             display: flex;
             justify-content: center;
             gap: 12px;
-            margin-top: 20px;
+            margin-top: 10px;
             position: relative;
             z-index: 10;
         }
@@ -448,10 +449,10 @@ function bz_render_home_page_shortcode() {
                 </div>
                 <button type="button" class="bz-slide-btn prev" id="coursesPrev" aria-label="قبلی">❮</button>
                 <button type="button" class="bz-slide-btn next" id="coursesNext" aria-label="بعدی">❯</button>
-            </div>
-            <div class="bz-dots" id="coursesDots">
-                <span class="bz-dot active" data-index="0"></span>
-                <span class="bz-dot" data-index="1"></span>
+                <div class="bz-dots" id="coursesDots">
+                    <span class="bz-dot active" data-index="0"></span>
+                    <span class="bz-dot" data-index="1"></span>
+                </div>
             </div>
         </div>
 
