@@ -300,7 +300,7 @@ function bz_render_home_page_shortcode() {
             justify-content: center;
             align-items: center;
             gap: 10px;
-            margin-top: 15px;
+            margin-top: 25px;
             z-index: 5;
         }
         .bz-slider-dot {
@@ -758,12 +758,9 @@ function bz_render_home_page_shortcode() {
                     isTransitioning = true;
                     currentIndex = index;
 
-                    // در حالت راست‌چین (RTL) مقدار حرکت منفی نیست، بلکه مثبت یا منفی است.
-                    // کدهای ارسالی شما از translateX(-{index * 100}%) استفاده می‌کرد.
-                    // از آنجایی که صفحه اصلی راست‌چین (RTL) است، مقدار translateX با جهت متفاوت رفتار می‌کند.
-                    // برای کنترل کامل حرکت در صفحات RTL، بهترین کار استفاده از translateX به صورت دقیق است:
-                    // با توجه به قالب ارسالی کاربر که translateX(-...) است، همان ساختار تست‌شده را قرار می‌دهیم.
-                    slidesTrack.style.transform = `translateX(-${currentIndex * 100}%)`;
+                    // در حالت راست‌چین (RTL) مقدار حرکت با جهت متفاوت رفتار می‌کند.
+                    // به جای استفاده از مقدار منفی در انتقال، در صفحات راست‌چین (RTL) باید از مقدار مثبت استفاده شود تا اسلاید دوم به درستی نمایش داده شده و سفید نشود.
+                    slidesTrack.style.transform = `translateX(${currentIndex * 100}%)`;
 
                     updateDots();
                     updateCounter();
