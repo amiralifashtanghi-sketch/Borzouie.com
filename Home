@@ -474,10 +474,10 @@ function bz_render_home_page_shortcode() {
             border-radius: 10px;
         }
 
-        /* کارت - کشیده‌تر و شکیل‌تر با هماهنگی کامل */
+        /* کارت - کشیده‌تر و شکیل‌تر (۱/۲۵ برابر کشیده‌تر) */
         .article-h-item {
             flex: 0 0 auto;
-            width: 315px;
+            width: 300px;
             background: #ffffff;
             border: 1px solid rgba(11, 28, 46, 0.08);
             border-radius: 20px;
@@ -488,7 +488,7 @@ function bz_render_home_page_shortcode() {
             flex-direction: column;
             align-items: stretch;
             box-shadow: 0 4px 14px rgba(0,0,0,0.03);
-            min-height: 520px;
+            min-height: 490px;
         }
 
         .article-h-item:hover {
@@ -497,7 +497,7 @@ function bz_render_home_page_shortcode() {
             border-color: #EF7215;
         }
 
-        /* عکس ۱ در ۱ مربعی کاملاً وسط‌چین با حاشیه ۲۵ پیکسل دقیق از لبه‌های کارت */
+        /* عکس ۱ در ۱ مربعی کاملاً وسط‌چین با حاشیه ۲۵ پیکسل از بالا، راست و چپ کارت */
         .article-h-image {
             width: calc(100% - 50px);
             aspect-ratio: 1 / 1;
@@ -511,6 +511,7 @@ function bz_render_home_page_shortcode() {
             align-items: center;
             justify-content: center;
             position: relative;
+            flex-shrink: 0;
         }
 
         .article-h-image img {
@@ -528,10 +529,10 @@ function bz_render_home_page_shortcode() {
         }
 
         .article-h-body {
-            padding: 10px 25px 25px 25px;
+            padding: 5px 25px 25px 25px;
             display: flex;
             flex-direction: column;
-            gap: 12px;
+            gap: 10px;
             flex: 1;
             width: 100%;
             text-align: right;
@@ -539,11 +540,11 @@ function bz_render_home_page_shortcode() {
 
         .article-h-title {
             margin: 0;
-            font-size: 1.05rem;
+            font-size: 1rem;
             color: #0B1C2E;
             font-weight: 700;
             line-height: 1.5;
-            min-height: 50px;
+            min-height: 48px;
             display: -webkit-box;
             -webkit-line-clamp: 2;
             -webkit-box-orient: vertical;
@@ -560,7 +561,7 @@ function bz_render_home_page_shortcode() {
             font-size: 0.85rem;
             color: #7B8A9B;
             line-height: 1.6;
-            min-height: 42px;
+            min-height: 40px;
             display: -webkit-box;
             -webkit-line-clamp: 2;
             -webkit-box-orient: vertical;
@@ -586,25 +587,25 @@ function bz_render_home_page_shortcode() {
             transform: translateX(-4px);
         }
 
-        /* ریسپانسیو - کشیده و متناسب */
+        /* ریسپانسیو - حفظ حاشیه ۲۵ پیکسل دور تا دور و نسبت ۱:۱ در موبایل */
         @media (max-width: 768px) {
             .article-h-item {
-                width: 255px;
-                min-height: 330px;
+                width: 270px;
+                min-height: 450px;
             }
             .article-h-image {
-                height: 170px;
-                width: calc(100% - 16px);
-                margin-top: 8px;
+                width: calc(100% - 50px);
+                aspect-ratio: 1 / 1;
+                margin: 25px auto 15px auto;
+            }
+            .article-h-body {
+                padding: 5px 25px 25px 25px;
             }
         }
         @media (max-width: 480px) {
             .article-h-item {
-                width: 225px;
-                min-height: 300px;
-            }
-            .article-h-image {
-                height: 150px;
+                width: 250px;
+                min-height: 420px;
             }
             .article-h-heading {
                 font-size: 1rem;
