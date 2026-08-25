@@ -454,8 +454,8 @@ function bz_render_home_page_shortcode() {
             display: flex;
             flex-direction: row;
             overflow-x: auto;
-            gap: 16px;
-            padding-bottom: 8px;
+            gap: 18px;
+            padding-bottom: 10px;
             scroll-behavior: smooth;
             -webkit-overflow-scrolling: touch;
             scrollbar-width: thin;
@@ -474,56 +474,65 @@ function bz_render_home_page_shortcode() {
             border-radius: 10px;
         }
 
-        /* کارت - افزایش اندازه ۱.۵ برابر */
+        /* کارت - کشیده‌تر و شکیل‌تر با هماهنگی کامل */
         .article-h-item {
             flex: 0 0 auto;
             width: 315px;
             background: #ffffff;
             border: 1px solid rgba(11, 28, 46, 0.08);
-            border-radius: 16px;
+            border-radius: 18px;
             overflow: hidden;
             text-decoration: none !important;
-            transition: all 0.3s ease;
+            transition: all 0.35s ease;
             display: flex;
             flex-direction: column;
-            box-shadow: 0 3px 10px rgba(0,0,0,0.03);
+            align-items: center; /* مرکز چین کردن محتوای کارت */
+            box-shadow: 0 4px 14px rgba(0,0,0,0.03);
+            min-height: 380px;
         }
 
         .article-h-item:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 10px 24px rgba(0, 0, 0, 0.08);
+            transform: translateY(-5px);
+            box-shadow: 0 12px 28px rgba(0, 0, 0, 0.09);
             border-color: #EF7215;
         }
 
-        /* عکس با حاشیه دور تا دور */
+        /* عکس کاملاً وسط چین با حاشیه دور تا دور و ارتفاع کشیده 210px */
         .article-h-image {
-            width: calc(100% - 16px);
-            height: 180px;
-            margin: 8px 8px 0 8px;
-            border-radius: 12px;
+            width: calc(100% - 20px);
+            height: 210px;
+            margin: 10px auto 0 auto;
+            border-radius: 14px;
             overflow: hidden;
             background: #f9fafb;
             border: 1px solid rgba(11, 28, 46, 0.12);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
         }
 
         .article-h-image img {
             width: 100%;
             height: 100%;
             object-fit: cover;
+            object-position: center;
             display: block;
-            transition: transform 0.3s ease;
+            transition: transform 0.4s ease;
         }
 
         .article-h-item:hover .article-h-image img {
-            transform: scale(1.03);
+            transform: scale(1.04);
         }
 
         .article-h-body {
-            padding: 14px 16px;
+            padding: 16px 18px;
             display: flex;
             flex-direction: column;
-            gap: 8px;
+            gap: 10px;
             flex: 1;
+            width: 100%;
+            text-align: right;
         }
 
         .article-h-title {
@@ -531,7 +540,7 @@ function bz_render_home_page_shortcode() {
             font-size: 1.05rem;
             color: #0B1C2E;
             font-weight: 700;
-            line-height: 1.45;
+            line-height: 1.5;
             display: -webkit-box;
             -webkit-line-clamp: 2;
             -webkit-box-orient: vertical;
@@ -547,41 +556,48 @@ function bz_render_home_page_shortcode() {
             margin: 0;
             font-size: 0.85rem;
             color: #7B8A9B;
-            line-height: 1.5;
-            white-space: nowrap;
+            line-height: 1.6;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
             overflow: hidden;
-            text-overflow: ellipsis;
         }
 
         .article-h-btn {
-            display: inline-block;
+            display: inline-flex;
+            align-items: center;
             margin-top: auto;
             color: #EF7215;
             font-size: 0.85rem;
-            font-weight: 600;
+            font-weight: 700;
             transition: all 0.2s ease;
+            padding-top: 6px;
         }
 
         .article-h-item:hover .article-h-btn {
             color: #EA580C;
-            padding-right: 4px;
+            transform: translateX(-4px);
         }
 
-        /* ریسپانسیو - ۱.۵ برابر اندازه قبلی */
+        /* ریسپانسیو - کشیده و متناسب */
         @media (max-width: 768px) {
             .article-h-item {
                 width: 255px;
+                min-height: 330px;
             }
             .article-h-image {
-                height: 150px;
+                height: 170px;
+                width: calc(100% - 16px);
+                margin-top: 8px;
             }
         }
         @media (max-width: 480px) {
             .article-h-item {
                 width: 225px;
+                min-height: 300px;
             }
             .article-h-image {
-                height: 135px;
+                height: 150px;
             }
             .article-h-heading {
                 font-size: 1rem;
@@ -753,7 +769,7 @@ function bz_render_home_page_shortcode() {
                             </div>
                             <div class="article-h-body">
                                 <h4 class="article-h-title"><?php the_title(); ?></h4>
-                                <p class="article-h-excerpt"><?php echo esc_html( wp_trim_words( get_the_excerpt(), 10, '...' ) ); ?></p>
+                                <p class="article-h-excerpt"><?php echo esc_html( wp_trim_words( get_the_excerpt(), 14, '...' ) ); ?></p>
                                 <span class="article-h-btn">مشاهده مقاله ←</span>
                             </div>
                         </a>
