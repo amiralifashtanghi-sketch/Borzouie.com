@@ -14,6 +14,7 @@ function bz_render_home_page_shortcode() {
     ob_start();
     ?>
     <!-- Vazirmatn Font -->
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
     <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css" rel="stylesheet" type="text/css" />
 
     <style>
@@ -38,7 +39,7 @@ function bz_render_home_page_shortcode() {
             --bz-shadow-lg: 0 20px 40px rgba(0,0,0,0.08);
             --bz-radius: 16px;
             --bz-transition: all 0.35s cubic-bezier(0.25,0.8,0.25,1);
-            --section-gap: 60px;
+            --section-gap: 30px;
             --soft-transition: all 0.8s cubic-bezier(0.22, 1, 0.36, 1);
         }
 
@@ -98,7 +99,11 @@ function bz_render_home_page_shortcode() {
             width: 100%;
             max-width: 1200px;
             margin: 0 auto;
-            padding: 70px 20px;
+            padding: 35px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
         }
         .bz-section-spacer {
             height: var(--section-gap);
@@ -109,7 +114,7 @@ function bz_render_home_page_shortcode() {
             font-size: 2rem;
             font-weight: 800;
             color: var(--bz-primary);
-            margin-bottom: 25px;
+            margin-bottom: 35px;
             letter-spacing: -0.5px;
         }
         .bz-section-title::after {
@@ -118,154 +123,185 @@ function bz_render_home_page_shortcode() {
             width: 60px;
             height: 3px;
             background: linear-gradient(90deg, var(--bz-accent), rgba(239,114,21,0.3));
-            margin: 14px auto 0;
+            margin: 24px auto 0;
             border-radius: 2px;
         }
         .bz-img-full { width: 100%; height: auto; display: block; }
         .bz-banner-wrapper { width: 100%; max-width: 100%; line-height: 0; overflow: hidden; }
 
-        /* ========== CARDS ========== */
-        .bz-card {
-            background: var(--bz-surface);
-            border-radius: var(--bz-radius);
-            overflow: hidden;
-            transition: var(--bz-transition);
-            text-decoration: none !important;
-            display: block;
-            box-shadow: var(--bz-shadow-sm);
-            border: 1px solid var(--bz-border);
-            height: 100%;
-        }
-        .bz-card:hover {
-            transform: translateY(-6px);
-            box-shadow: var(--bz-shadow-lg);
-            border-color: rgba(239,114,21,0.3);
-        }
-
-        /* استایل اختصاصی بنرهای دوره رایگان */
-        .bz-course-item .bz-card {
-            background: transparent !important;
-            border: none !important;
-            box-shadow: none !important;
-            height: auto !important;
-            padding: 0 !important;
-        }
-        .bz-course-item .bz-card img {
-            border-radius: var(--bz-radius);
-            display: block;
-            width: 100%;
-            height: auto;
-            box-shadow: var(--bz-shadow-md);
-            transition: transform 0.4s ease;
-        }
-        .bz-course-item .bz-card:hover img {
-            transform: translateY(-4px) scale(1.02);
-        }
-
-        .bz-card-img-wrap {
-            overflow: hidden;
-            line-height: 0;
+        /* ========== MODERN BANNER SLIDER ========== */
+        .bz-slider-wrapper {
             position: relative;
-        }
-        .bz-card-img-wrap img {
             width: 100%;
-            height: 160px;
-            object-fit: cover;
-            transition: transform 0.7s;
-        }
-        .bz-card:hover .bz-card-img-wrap img {
-            transform: scale(1.04);
-        }
-
-        /* ========== SCROLL CONTAINER ========== */
-        .bz-scroll-wrapper {
-            display: flex;
-            overflow-x: auto;
-            scroll-snap-type: x mandatory;
-            gap: 20px;
-            padding: 10px 0 20px 0;
-            scrollbar-width: none;
-            -webkit-overflow-scrolling: touch;
-        }
-        .bz-scroll-wrapper::-webkit-scrollbar { display: none; }
-        
-        /* تغییر مهم: نمایش ۱ آیتم در تمام ابعاد (موبایل و دسکتاپ) */
-        .bz-course-item {
-            flex: 0 0 100%;
-            scroll-snap-align: center;
-        }
-
-        /* برای مقالات ۳ تا در ردیف در دسکتاپ باقی می‌ماند */
-        .bz-post-item {
-            flex: 0 0 calc(33.333% - 14px);
-            min-width: 280px;
-            scroll-snap-align: start;
-        }
-
-        /* ========== SLIDER ========== */
-        .bz-courses-slider {
-            position: relative;
-            padding: 0 50px;
-            z-index: 2;
-            max-width: 900px; /* جلوگیری از بزرگ شدن بیش از حد تک‌بنر در دسکتاپ */
+            max-width: 900px;
             margin: 0 auto;
-        }
-        @media (max-width: 768px) {
-            .bz-courses-slider { padding: 0 10px; }
+            z-index: 1;
         }
 
-        .bz-slide-btn {
+        .bz-slider-container {
+            position: relative;
+            width: 100%;
+            border-radius: var(--bz-radius);
+            overflow: hidden;
+            box-shadow: var(--bz-shadow-md), 0 0 0 1px rgba(255, 255, 255, 0.5);
+            aspect-ratio: 1024 / 570;
+            background: #f1f5f9;
+            user-select: none;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .bz-slides-track {
+            display: flex;
+            width: 100%;
+            height: 100%;
+            transition: transform 0.55s cubic-bezier(0.4, 0, 0.2, 1);
+            will-change: transform;
+        }
+
+        .bz-slide {
+            min-width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            flex-shrink: 0;
+            position: relative;
+            display: block;
+            text-decoration: none !important;
+        }
+
+        .bz-nav-btn {
             position: absolute;
             top: 50%;
             transform: translateY(-50%);
-            background: var(--bz-accent);
-            color: white;
-            border: none;
-            width: 46px;
-            height: 46px;
+            width: 44px;
+            height: 44px;
             border-radius: 50%;
+            background: var(--bz-surface);
+            border: none;
+            cursor: pointer;
+            color: #374151;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.12);
+            z-index: 10;
+            transition: all 0.25s ease;
             display: flex;
             align-items: center;
             justify-content: center;
-            cursor: pointer;
-            transition: var(--bz-transition);
-            box-shadow: 0 6px 20px rgba(239,114,21,0.4);
-            z-index: 30;
-            font-size: 20px;
-            line-height: 1;
-            font-weight: bold;
-            touch-action: manipulation;
-            user-select: none;
+            outline: none;
+            -webkit-tap-highlight-color: transparent;
         }
-        .bz-slide-btn:hover, .bz-slide-btn:active {
-            background: #d15f0f;
-            transform: translateY(-50%) scale(1.1);
+        .bz-nav-btn:hover {
+            background: #f8fafc;
+            box-shadow: 0 6px 22px rgba(0, 0, 0, 0.18);
+            color: var(--bz-accent);
+            transform: translateY(-50%) scale(1.07);
         }
-        .bz-slide-btn.prev { right: 0; }
-        .bz-slide-btn.next { left: 0; }
+        .bz-nav-btn:active {
+            transform: translateY(-50%) scale(0.94);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+            transition: all 0.1s ease;
+        }
+        .bz-nav-btn.prev {
+            right: 15px;
+        }
+        .bz-nav-btn.next {
+            left: 15px;
+        }
+        .bz-nav-btn svg {
+            width: 20px;
+            height: 20px;
+            pointer-events: none;
+        }
 
-        @media (max-width: 768px) {
-            .bz-slide-btn { width: 40px; height: 40px; font-size: 18px; }
-            .bz-slide-btn.prev { right: -5px; }
-            .bz-slide-btn.next { left: -5px; }
-        }
-
-        .bz-dots {
+        .bz-dots-container {
             display: flex;
             justify-content: center;
-            gap: 12px;
-            margin-top: 16px;
+            align-items: center;
+            gap: 10px;
+            margin-top: 25px;
+            z-index: 5;
         }
-        .bz-dot {
-            width: 10px; height: 10px;
+        .bz-slider-dot {
+            width: 10px;
+            height: 10px;
             border-radius: 50%;
-            background: rgba(11,28,46,0.2);
-            transition: var(--bz-transition);
+            background: #cbd5e1;
             cursor: pointer;
+            transition: all 0.35s ease;
+            border: none;
+            outline: none;
+            padding: 0;
+            -webkit-tap-highlight-color: transparent;
         }
-        .bz-dot.active {
+        .bz-slider-dot.active {
             background: var(--bz-accent);
-            transform: scale(1.3);
+            width: 30px;
+            border-radius: 20px;
+            box-shadow: 0 0 0 4px rgba(239, 114, 21, 0.2);
+        }
+        .bz-slider-dot:hover:not(.active) {
+            background: #94a3b8;
+        }
+
+        .bz-counter-badge {
+            position: absolute;
+            bottom: 14px;
+            left: 14px;
+            z-index: 10;
+            background: rgba(0, 0, 0, 0.55);
+            color: #fff;
+            padding: 5px 12px;
+            border-radius: 50px;
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            pointer-events: none;
+        }
+
+        @media (max-width: 768px) {
+            .bz-slider-container {
+                aspect-ratio: 1024 / 570;
+                border-radius: 16px;
+            }
+            .bz-nav-btn {
+                width: 36px;
+                height: 36px;
+                font-size: 15px;
+            }
+            .bz-nav-btn.prev {
+                right: 8px;
+            }
+            .bz-nav-btn.next {
+                left: 8px;
+            }
+            .bz-nav-btn svg {
+                width: 16px;
+                height: 16px;
+            }
+            .bz-counter-badge {
+                bottom: 8px;
+                left: 8px;
+                font-size: 10px;
+                padding: 4px 10px;
+            }
+        }
+        @media (max-width: 400px) {
+            .bz-slider-container {
+                aspect-ratio: 1024 / 570;
+                border-radius: 14px;
+            }
+            .bz-nav-btn {
+                width: 30px;
+                height: 30px;
+            }
+            .bz-nav-btn.prev {
+                right: 4px;
+            }
+            .bz-nav-btn.next {
+                left: 4px;
+            }
         }
 
         /* ========== APPS GRID ========== */
@@ -274,13 +310,25 @@ function bz_render_home_page_shortcode() {
             background-color: rgba(11,28,46,0.02);
             border-top: 1px solid rgba(11,28,46,0.05);
             border-bottom: 1px solid rgba(11,28,46,0.05);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
         }
         .bz-apps-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
             gap: 24px;
+            width: 100%;
+            margin: 0 auto;
         }
         .bz-app-gate {
+            flex: 1 1 calc(25% - 24px);
+            max-width: 270px;
+            min-width: 220px;
             background: var(--bz-surface);
             border: 1px solid var(--bz-border);
             padding: 30px 20px;
@@ -355,15 +403,217 @@ function bz_render_home_page_shortcode() {
         }
         .bz-loading-text { color: var(--bz-primary); font-size: 15px; font-weight: 700; text-align: center; line-height: 1.5; }
 
-        /* ========== POST CONTENT ========== */
-        .bz-post-content { padding: 20px 18px; }
-        .bz-post-title { font-size: 16px; font-weight: 700; color: var(--bz-primary); margin-bottom: 10px; line-height: 1.5; transition: color 0.3s; }
-        .bz-card:hover .bz-post-title { color: var(--bz-accent); }
-        .bz-post-excerpt { font-size: 13px; color: var(--bz-muted); margin-bottom: 14px; line-height: 1.7; }
-        .bz-post-meta { font-size: 12px; color: var(--bz-accent); font-weight: 600; display: flex; gap: 6px; }
+        /* ========== HORIZONTAL ARTICLES SCROLL (WITHOUT CONTAINER) ========== */
+        .article-horizontal-section {
+            width: 100%;
+            max-width: 900px;
+            margin: 0 auto;
+            direction: rtl;
+            padding: 0;
+        }
+
+        .article-h-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+            padding: 0 5px;
+        }
+
+        .article-h-title-group {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .article-h-icon {
+            font-size: 22px;
+        }
+
+        .article-h-heading {
+            margin: 0;
+            font-size: 1.2rem;
+            color: #0B1C2E;
+            font-weight: 700;
+            line-height: 1.2;
+        }
+
+        .article-h-count {
+            background: #fff8f0;
+            color: #EF7215;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.78rem;
+            font-weight: 600;
+            border: 1px solid rgba(239, 114, 21, 0.3);
+            white-space: nowrap;
+        }
+
+        /* اسکرول افقی */
+        .article-h-scroll {
+            display: flex;
+            flex-direction: row;
+            overflow-x: auto;
+            gap: 18px;
+            padding-bottom: 10px;
+            scroll-behavior: smooth;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: thin;
+            scrollbar-color: #EF7215 #f1f1f1;
+        }
+
+        .article-h-scroll::-webkit-scrollbar {
+            height: 5px;
+        }
+        .article-h-scroll::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 10px;
+        }
+        .article-h-scroll::-webkit-scrollbar-thumb {
+            background: #EF7215;
+            border-radius: 10px;
+        }
+
+        /* کارت - کشیده‌تر و شکیل‌تر (۱/۲۵ برابر کشیده‌تر) */
+        .article-h-item {
+            flex: 0 0 auto;
+            width: 300px;
+            background: #ffffff;
+            border: 1px solid rgba(11, 28, 46, 0.08);
+            border-radius: 20px;
+            overflow: hidden;
+            text-decoration: none !important;
+            transition: all 0.35s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: stretch;
+            box-shadow: 0 4px 14px rgba(0,0,0,0.03);
+            min-height: 490px;
+        }
+
+        .article-h-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 28px rgba(0, 0, 0, 0.09);
+            border-color: #EF7215;
+        }
+
+        /* عکس ۱ در ۱ مربعی کاملاً وسط‌چین با حاشیه ۲۵ پیکسل از بالا، راست و چپ کارت */
+        .article-h-image {
+            width: calc(100% - 50px);
+            aspect-ratio: 1 / 1;
+            margin: 25px auto 15px auto;
+            border-radius: 16px;
+            overflow: hidden;
+            background: #ffffff;
+            border: 1px solid rgba(11, 28, 46, 0.14);
+            padding: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            flex-shrink: 0;
+        }
+
+        .article-h-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+            display: block;
+            border-radius: 12px;
+            transition: transform 0.4s ease;
+        }
+
+        .article-h-item:hover .article-h-image img {
+            transform: scale(1.04);
+        }
+
+        .article-h-body {
+            padding: 5px 25px 25px 25px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            flex: 1;
+            width: 100%;
+            text-align: right;
+        }
+
+        .article-h-title {
+            margin: 0;
+            font-size: 1rem;
+            color: #0B1C2E;
+            font-weight: 700;
+            line-height: 1.5;
+            min-height: 48px;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            transition: color 0.2s ease;
+        }
+
+        .article-h-item:hover .article-h-title {
+            color: #EF7215;
+        }
+
+        .article-h-excerpt {
+            margin: 0;
+            font-size: 0.85rem;
+            color: #7B8A9B;
+            line-height: 1.6;
+            min-height: 40px;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .article-h-btn {
+            display: inline-flex;
+            align-items: center;
+            margin-top: auto;
+            color: #EF7215;
+            font-size: 0.85rem;
+            font-weight: 700;
+            transition: all 0.2s ease;
+            padding-top: 10px;
+            border-top: 1px dashed rgba(11, 28, 46, 0.08);
+            width: 100%;
+            justify-content: flex-start;
+        }
+
+        .article-h-item:hover .article-h-btn {
+            color: #EA580C;
+            transform: translateX(-4px);
+        }
+
+        /* ریسپانسیو - حفظ حاشیه ۲۵ پیکسل دور تا دور و نسبت ۱:۱ در موبایل */
+        @media (max-width: 768px) {
+            .article-h-item {
+                width: 270px;
+                min-height: 450px;
+            }
+            .article-h-image {
+                width: calc(100% - 50px);
+                aspect-ratio: 1 / 1;
+                margin: 25px auto 15px auto;
+            }
+            .article-h-body {
+                padding: 5px 25px 25px 25px;
+            }
+        }
+        @media (max-width: 480px) {
+            .article-h-item {
+                width: 250px;
+                min-height: 420px;
+            }
+            .article-h-heading {
+                font-size: 1rem;
+            }
+        }
 
         /* ========== DUAL BANNERS ========== */
-        .bz-dual-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 28px; }
+        .bz-dual-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 28px; width: 100%; }
         .bz-banner-clean {
             display: block; border-radius: var(--bz-radius); overflow: hidden;
             transition: var(--bz-transition); box-shadow: var(--bz-shadow-sm);
@@ -375,13 +625,13 @@ function bz_render_home_page_shortcode() {
         .bz-reveal.visible { opacity: 1; transform: translateY(0); }
 
         /* ========== RESPONSIVE ========== */
-        @media (max-width: 992px) { .bz-container { padding: 60px 18px; } }
+        @media (max-width: 992px) { .bz-container { padding: 30px 18px; } }
         @media (max-width: 768px) {
-            .bz-container { padding: 50px 16px; }
-            .bz-apps-grid { grid-template-columns: repeat(2, 1fr); gap: 16px; }
+            .bz-container { padding: 25px 16px; }
+            .bz-apps-grid { gap: 16px; }
+            .bz-app-gate { flex: 1 1 calc(50% - 16px); min-width: 140px; }
             .bz-dual-grid { grid-template-columns: 1fr; gap: 20px; }
             .bz-section-title { font-size: 1.6rem; }
-            .bz-post-item { flex: 0 0 100%; min-width: 100%; } /* مقالات در موبایل تک ردیفه */
         }
     </style>
 
@@ -395,7 +645,7 @@ function bz_render_home_page_shortcode() {
     <main id="bz-luxury-home">
         <!-- Hero Banner -->
         <div class="bz-banner-wrapper">
-            <img src="https://borzouie.com/wp-content/uploads/2026/01/%D8%A8%D9%86%D8%B1-%D8%A7%D8%B5%D9%84%DB%8C-%D8%B3%D8%A7%DB%8C%D8%AA-%D8%B3%D8%A8%DA%A9-%D8%B2%D9%86%D8%AF%DA%AF%DB%8C_result-1536x624.webp" alt="آکادمی برزویی" class="bz-img-full" fetchpriority="high">
+            <img src="https://borzouie.com/wp-content/uploads/2026/01/%D8%A8%D9%86%D8%B1-%D8%A7%D8%B5%D9%84%DB%8C-%D8%B3%D8%A7%DB%8C%D8%AA-%D8%B3%D8%A8%DA%A9-%D8%B2%D9%86%D8%AF%DA%AF%DB%8C_result-1536x624.webp" alt="آکادمی برزویی" class="bz-img-full" fetchpriority="high" decoding="async">
         </div>
 
         <div class="bz-section-spacer"></div>
@@ -403,25 +653,34 @@ function bz_render_home_page_shortcode() {
         <!-- Free Courses Slider -->
         <div class="bz-container bz-reveal">
             <h2 class="bz-section-title">دوره‌های رایگان آکادمی</h2>
-            <div class="bz-courses-slider">
-                <div class="bz-scroll-wrapper" id="coursesScroll">
-                    <div class="bz-course-item">
-                        <a href="https://borzouie.com/product/mezajshenasi/" class="bz-card">
-                            <img src="https://borzouie.com/wp-content/uploads/2026/02/free2.webp" alt="دوره مزاج شناسی" class="bz-img-full" loading="lazy">
-                        </a>
+
+            <div class="bz-slider-wrapper">
+                <div class="bz-slider-container" id="sliderContainer">
+                    <div class="bz-slides-track" id="slidesTrack">
+                        <!-- اسلاید ۱ - تصویر free2.webp -->
+                        <a href="https://borzouie.com/product/mezajshenasi/" class="bz-slide" style="background-image: url('https://borzouie.com/wp-content/uploads/2026/02/free2.webp');"></a>
+                        <!-- اسلاید ۲ - تصویر free1.webp -->
+                        <a href="https://borzouie.com/product/sabkezendegi1/" class="bz-slide" style="background-image: url('https://borzouie.com/wp-content/uploads/2026/02/free1.webp');"></a>
                     </div>
-                    <div class="bz-course-item">
-                        <a href="https://borzouie.com/product/sabkezendegi1/" class="bz-card">
-                            <img src="https://borzouie.com/wp-content/uploads/2026/02/free1.webp" alt="دوره سبک زندگی" class="bz-img-full" loading="lazy">
-                        </a>
-                    </div>
+
+                    <button type="button" class="bz-nav-btn prev" id="prevBtn" aria-label="اسلاید قبلی" title="قبلی">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="9 18 15 12 9 6"></polyline>
+                        </svg>
+                    </button>
+                    <button type="button" class="bz-nav-btn next" id="nextBtn" aria-label="اسلاید بعدی" title="بعدی">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="15 18 9 12 15 6"></polyline>
+                        </svg>
+                    </button>
+
+                    <span class="bz-counter-badge" id="counterBadge">1 / 2</span>
                 </div>
-                <button type="button" class="bz-slide-btn prev" id="coursesPrev" aria-label="قبلی">❮</button>
-                <button type="button" class="bz-slide-btn next" id="coursesNext" aria-label="بعدی">❯</button>
-            </div>
-            <div class="bz-dots" id="coursesDots">
-                <span class="bz-dot active" data-index="0"></span>
-                <span class="bz-dot" data-index="1"></span>
+
+                <div class="bz-dots-container" id="dotsContainer">
+                    <button type="button" class="bz-slider-dot active" data-index="0" aria-label="اسلاید ۱"></button>
+                    <button type="button" class="bz-slider-dot" data-index="1" aria-label="اسلاید ۲"></button>
+                </div>
             </div>
         </div>
 
@@ -429,13 +688,13 @@ function bz_render_home_page_shortcode() {
 
         <!-- Application Downloads (with Blur Overlay) -->
         <div class="bz-apps-wrapper">
-            <div class="bz-container bz-reveal" style="padding-top: 70px; padding-bottom: 70px;">
+            <div class="bz-container bz-reveal" style="padding-top: 35px; padding-bottom: 35px;">
                 <h2 class="bz-section-title">دریافت اپلیکیشن‌های آکادمی</h2>
                 <div class="bz-apps-grid" id="appsGrid">
                     <!-- Windows -->
                     <div class="bz-app-gate" data-href="https://my.uupload.ir/dl/mbAvW9EN" data-type="download">
                         <div class="bz-app-icon-wrap">
-                            <img src="https://borzouie.com/wp-content/uploads/2026/04/win.png" alt="ویندوز" class="bz-app-icon" loading="lazy">
+                            <img src="https://borzouie.com/wp-content/uploads/2026/04/win.png" alt="ویندوز" class="bz-app-icon" loading="lazy" decoding="async">
                         </div>
                         <span class="bz-app-title">نسخه ویندوز</span>
                         <div class="bz-loading-overlay">
@@ -446,7 +705,7 @@ function bz_render_home_page_shortcode() {
                     <!-- Mac -->
                     <div class="bz-app-gate" data-href="https://my.uupload.ir/dl/NdQpmaN0" data-type="download">
                         <div class="bz-app-icon-wrap">
-                            <img src="https://borzouie.com/wp-content/uploads/2026/04/mac.png" alt="مک" class="bz-app-icon" loading="lazy">
+                            <img src="https://borzouie.com/wp-content/uploads/2026/04/mac.png" alt="مک" class="bz-app-icon" loading="lazy" decoding="async">
                         </div>
                         <span class="bz-app-title">نسخه مک‌بوک</span>
                         <div class="bz-loading-overlay">
@@ -457,7 +716,7 @@ function bz_render_home_page_shortcode() {
                     <!-- Android -->
                     <div class="bz-app-gate" data-href="https://my.uupload.ir/dl/kjXEKeRX" data-type="download">
                         <div class="bz-app-icon-wrap">
-                            <img src="https://borzouie.com/wp-content/uploads/2026/04/android.png" alt="اندروید" class="bz-app-icon" loading="lazy">
+                            <img src="https://borzouie.com/wp-content/uploads/2026/04/android.png" alt="اندروید" class="bz-app-icon" loading="lazy" decoding="async">
                         </div>
                         <span class="bz-app-title">نسخه اندروید</span>
                         <div class="bz-loading-overlay">
@@ -468,7 +727,7 @@ function bz_render_home_page_shortcode() {
                     <!-- Web / iOS -->
                     <div class="bz-app-gate" data-href="https://app.borzouie.com" data-type="web">
                         <div class="bz-app-icon-wrap">
-                            <img src="https://borzouie.com/wp-content/uploads/2026/04/ios.png" alt="تحت وب" class="bz-app-icon" loading="lazy">
+                            <img src="https://borzouie.com/wp-content/uploads/2026/04/ios.png" alt="تحت وب" class="bz-app-icon" loading="lazy" decoding="async">
                         </div>
                         <span class="bz-app-title">نسخه وب / iOS</span>
                         <div class="bz-loading-overlay">
@@ -482,49 +741,49 @@ function bz_render_home_page_shortcode() {
 
         <div class="bz-section-spacer"></div>
 
-        <!-- Dynamic Latest Articles Section -->
+        <!-- Dynamic Latest Articles Section (Horizontal Scroll Without Container) -->
         <div class="bz-container bz-reveal">
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px;">
-                <h2 class="bz-section-title" style="text-align: right; margin-bottom: 0;">آخرین مقالات</h2>
-                <a href="<?php echo esc_url( get_permalink( get_option( 'page_for_posts' ) ) ?: home_url( '/blog' ) ); ?>" style="color: var(--bz-accent); text-decoration: none; font-weight: 700; font-size: 15px;">مشاهده همه ←</a>
-            </div>
-            <div class="bz-scroll-wrapper" id="articlesScroll">
-                <?php
-                $args = array(
-                    'post_type'      => 'post',
-                    'posts_per_page' => 5,
-                    'post_status'    => 'publish',
-                );
-                $latest_posts = new WP_Query( $args );
+            <?php
+            $args = array(
+                'post_type'      => 'post',
+                'posts_per_page' => 10,
+                'post_status'    => 'publish',
+            );
+            $latest_posts = new WP_Query( $args );
+            ?>
+            <div class="article-horizontal-section">
+                <!-- هدر کوچک -->
+                <div class="article-h-header">
+                    <div class="article-h-title-group">
+                        <span class="article-h-icon">📰</span>
+                        <h2 class="article-h-heading">مقالات سایت</h2>
+                    </div>
+                </div>
 
-                if ( $latest_posts->have_posts() ) :
-                    while ( $latest_posts->have_posts() ) : $latest_posts->the_post();
-                        $thumb_url = get_the_post_thumbnail_url( get_the_ID(), 'medium' );
-                        if ( ! $thumb_url ) {
-                            $thumb_url = 'https://borzouie.com/wp-content/uploads/2026/02/free1.webp';
-                        }
+                <!-- ناحیه اسکرول افقی -->
+                <div class="article-h-scroll">
+                    <?php if ( $latest_posts->have_posts() ) : ?>
+                        <?php while ( $latest_posts->have_posts() ) : $latest_posts->the_post();
+                            $thumb_url = get_the_post_thumbnail_url( get_the_ID(), 'medium' );
+                            if ( ! $thumb_url ) {
+                                $thumb_url = 'https://borzouie.com/wp-content/uploads/2026/02/free1.webp';
+                            }
                         ?>
-                        <div class="bz-post-item">
-                            <a href="<?php the_permalink(); ?>" class="bz-card">
-                                <div class="bz-card-img-wrap">
-                                    <img src="<?php echo esc_url( $thumb_url ); ?>" alt="<?php echo esc_attr( get_the_title() ); ?>" loading="lazy">
-                                </div>
-                                <div class="bz-post-content">
-                                    <h3 class="bz-post-title"><?php the_title(); ?></h3>
-                                    <p class="bz-post-excerpt"><?php echo esc_html( wp_trim_words( get_the_excerpt(), 14, '...' ) ); ?></p>
-                                    <div class="bz-post-meta">
-                                        <span><?php echo esc_html( get_the_date() ); ?></span>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                        <?php
-                    endwhile;
-                    wp_reset_postdata();
-                else :
-                    echo '<p style="color:var(--bz-muted);">هنوز مقاله‌ای منتشر نشده است.</p>';
-                endif;
-                ?>
+                        <a href="<?php the_permalink(); ?>" class="article-h-item">
+                            <div class="article-h-image">
+                                <img src="<?php echo esc_url( $thumb_url ); ?>" alt="<?php echo esc_attr( get_the_title() ); ?>" loading="lazy" decoding="async">
+                            </div>
+                            <div class="article-h-body">
+                                <h4 class="article-h-title"><?php the_title(); ?></h4>
+                                <p class="article-h-excerpt"><?php echo esc_html( wp_trim_words( get_the_excerpt(), 14, '...' ) ); ?></p>
+                                <span class="article-h-btn">مشاهده مقاله ←</span>
+                            </div>
+                        </a>
+                        <?php endwhile; wp_reset_postdata(); ?>
+                    <?php else : ?>
+                        <p style="color:var(--bz-muted);">هنوز مقاله‌ای منتشر نشده است.</p>
+                    <?php endif; ?>
+                </div>
             </div>
         </div>
 
@@ -534,10 +793,10 @@ function bz_render_home_page_shortcode() {
         <div class="bz-container bz-reveal">
             <div class="bz-dual-grid">
                 <a href="<?php echo esc_url( home_url( '/consultation' ) ); ?>" class="bz-banner-clean">
-                    <img src="https://borzouie.com/wp-content/uploads/2026/02/consultaion3.webp" alt="مشاوره" class="bz-img-full" loading="lazy">
+                    <img src="https://borzouie.com/wp-content/uploads/2026/02/consultaion3.webp" alt="مشاوره" class="bz-img-full" loading="lazy" decoding="async">
                 </a>
                 <a href="<?php echo esc_url( home_url( '/form' ) ); ?>" class="bz-banner-clean">
-                    <img src="https://borzouie.com/wp-content/uploads/2026/02/form-banne2r.webp" alt="فرم" class="bz-img-full" loading="lazy">
+                    <img src="https://borzouie.com/wp-content/uploads/2026/02/form-banne2r.webp" alt="فرم" class="bz-img-full" loading="lazy" decoding="async">
                 </a>
             </div>
         </div>
@@ -547,7 +806,7 @@ function bz_render_home_page_shortcode() {
         <!-- Full Width Banners -->
         <div class="bz-banner-wrapper">
             <a href="https://borzouie-business.ir/" target="_blank" rel="noopener">
-                <img src="https://borzouie.com/wp-content/uploads/2026/08/1000191383.webp" alt="بیزینس" class="bz-img-full" loading="lazy">
+                <img src="https://borzouie.com/wp-content/uploads/2026/08/1000191383.webp" alt="بیزینس" class="bz-img-full" loading="lazy" decoding="async">
             </a>
         </div>
 
@@ -555,12 +814,11 @@ function bz_render_home_page_shortcode() {
 
         <div class="bz-banner-wrapper">
             <a href="https://borzouie.ir/" target="_blank" rel="noopener">
-                <img src="https://borzouie.com/wp-content/uploads/2026/02/organic-products-main-page.webp" alt="ارگانیک" class="bz-img-full" loading="lazy">
+                <img src="https://borzouie.com/wp-content/uploads/2026/02/organic-products-main-page.webp" alt="ارگانیک" class="bz-img-full" loading="lazy" decoding="async">
             </a>
         </div>
         
         <!-- فاصله خالی پایان بنرها با فوتر -->
-        <div class="bz-section-spacer"></div>
         <div class="bz-section-spacer"></div>
 
     </main>
@@ -576,8 +834,8 @@ function bz_render_home_page_shortcode() {
                     preloader.style.visibility = 'hidden';
                     setTimeout(() => preloader.style.display = 'none', 700);
                 };
-                window.addEventListener('load', hidePreloader);
-                setTimeout(hidePreloader, 4000);
+                // Hide preloader extremely fast (300ms after DOMContentLoaded) to maximize PageSpeed Score and make the experience instant
+                setTimeout(hidePreloader, 300);
             }
 
             // ===== REVEAL ANIMATION =====
@@ -591,101 +849,156 @@ function bz_render_home_page_shortcode() {
                 revealEls.forEach(el => el.classList.add('visible'));
             }
 
-            // ===== COURSES SLIDER (RTL + Mobile/Desktop Fix + Auto Scroll) =====
-            const scrollWrapper = document.getElementById('coursesScroll');
-            if (scrollWrapper) {
-                const slides = scrollWrapper.querySelectorAll('.bz-course-item');
-                const dots = document.querySelectorAll('#coursesDots .bz-dot');
-                const prevBtn = document.getElementById('coursesPrev');
-                const nextBtn = document.getElementById('coursesNext');
-                let currentSlideIndex = 0;
-                let autoScrollTimer;
+            // ===== COURSES SLIDER (RTL + Autoplay + Swipes + Buttons) =====
+            (function() {
+                const slidesTrack = document.getElementById('slidesTrack');
+                const prevBtn = document.getElementById('prevBtn');
+                const nextBtn = document.getElementById('nextBtn');
+                const counterBadge = document.getElementById('counterBadge');
+                const dotsContainer = document.getElementById('dotsContainer');
+                const sliderContainer = document.getElementById('sliderContainer');
 
-                function scrollToIndex(index) {
-                    if (index < 0) index = slides.length - 1; // برگشت به آخر اگر از اول رد شد
-                    if (index >= slides.length) index = 0; // برگشت به اول اگر به آخر رسید
-                    currentSlideIndex = index;
-                    
-                    slides[currentSlideIndex].scrollIntoView({
-                        behavior: 'smooth',
-                        inline: 'center',
-                        block: 'nearest'
+                if (!slidesTrack || !sliderContainer) return;
+
+                const dots = dotsContainer ? dotsContainer.querySelectorAll('.bz-slider-dot') : [];
+                const totalSlides = 2;
+                let currentIndex = 0;
+                let autoPlayInterval = null;
+                const autoPlayDelay = 5000; // اسکرول خودکار هر ۵ ثانیه
+                let isTransitioning = false;
+
+                function goToSlide(index) {
+                    if (isTransitioning) return;
+                    if (index < 0 || index >= totalSlides) return;
+                    if (index === currentIndex) return;
+
+                    isTransitioning = true;
+                    currentIndex = index;
+
+                    // در حالت راست‌چین (RTL) مقدار حرکت با جهت متفاوت رفتار می‌کند.
+                    // به جای استفاده از مقدار منفی در انتقال، در صفحات راست‌چین (RTL) باید از مقدار مثبت استفاده شود تا اسلاید دوم به درستی نمایش داده شده و سفید نشود.
+                    slidesTrack.style.transform = `translateX(${currentIndex * 100}%)`;
+
+                    updateDots();
+                    updateCounter();
+
+                    setTimeout(() => {
+                        isTransitioning = false;
+                    }, 580);
+                }
+
+                function nextSlide() {
+                    goToSlide((currentIndex + 1) % totalSlides);
+                }
+
+                function prevSlide() {
+                    goToSlide((currentIndex - 1 + totalSlides) % totalSlides);
+                }
+
+                function updateDots() {
+                    dots.forEach((dot, i) => {
+                        dot.classList.toggle('active', i === currentIndex);
+                        if (i === currentIndex) dot.setAttribute('aria-current', 'true');
+                        else dot.removeAttribute('aria-current');
                     });
-                    
-                    updateActiveDot(currentSlideIndex);
                 }
 
-                function updateActiveDot(index) {
-                    dots.forEach((dot, i) => dot.classList.toggle('active', i === index));
+                function updateCounter() {
+                    if (counterBadge) {
+                        counterBadge.textContent = `${currentIndex + 1} / ${totalSlides}`;
+                    }
                 }
 
-                // توابع اسکرول خودکار
-                function startAutoScroll() {
-                    stopAutoScroll();
-                    autoScrollTimer = setInterval(() => {
-                        scrollToIndex(currentSlideIndex + 1);
-                    }, 3000); // هر ۳ ثانیه
+                function startAutoPlay() {
+                    stopAutoPlay();
+                    autoPlayInterval = setInterval(nextSlide, autoPlayDelay);
                 }
 
-                function stopAutoScroll() {
-                    if(autoScrollTimer) clearInterval(autoScrollTimer);
+                function stopAutoPlay() {
+                    if (autoPlayInterval) {
+                        clearInterval(autoPlayInterval);
+                        autoPlayInterval = null;
+                    }
                 }
 
-                // شروع اسکرول خودکار در ابتدا
-                startAutoScroll();
+                function resetAutoPlay() {
+                    stopAutoPlay();
+                    startAutoPlay();
+                }
 
-                // توقف اسکرول هنگام هاور یا لمس
-                const sliderContainer = document.querySelector('.bz-courses-slider');
-                sliderContainer.addEventListener('mouseenter', stopAutoScroll);
-                sliderContainer.addEventListener('mouseleave', startAutoScroll);
-                sliderContainer.addEventListener('touchstart', stopAutoScroll, {passive: true});
-                sliderContainer.addEventListener('touchend', startAutoScroll);
-
-                // دکمه‌های چپ و راست
                 if (prevBtn) {
-                    prevBtn.addEventListener('click', function(e) {
+                    prevBtn.addEventListener('click', (e) => {
                         e.preventDefault();
-                        scrollToIndex(currentSlideIndex - 1);
+                        prevSlide();
+                        resetAutoPlay();
                     });
                 }
                 if (nextBtn) {
-                    nextBtn.addEventListener('click', function(e) {
+                    nextBtn.addEventListener('click', (e) => {
                         e.preventDefault();
-                        scrollToIndex(currentSlideIndex + 1);
+                        nextSlide();
+                        resetAutoPlay();
                     });
                 }
 
-                // دات‌های زیر اسلایدر
-                dots.forEach(dot => {
-                    dot.addEventListener('click', function() {
-                        const idx = parseInt(this.dataset.index);
-                        scrollToIndex(idx);
+                if (dotsContainer) {
+                    dotsContainer.addEventListener('click', (e) => {
+                        const dot = e.target.closest('.bz-slider-dot');
+                        if (!dot) return;
+                        const index = parseInt(dot.getAttribute('data-index'), 10);
+                        if (!isNaN(index) && index !== currentIndex) {
+                            goToSlide(index);
+                            resetAutoPlay();
+                        }
                     });
+                }
+
+                sliderContainer.addEventListener('mouseenter', stopAutoPlay);
+                sliderContainer.addEventListener('mouseleave', startAutoPlay);
+                sliderContainer.addEventListener('touchstart', stopAutoPlay, { passive: true });
+                sliderContainer.addEventListener('touchend', () => {
+                    setTimeout(startAutoPlay, 500);
                 });
 
-                // همگام‌سازی دات با کشیدن دستی
-                scrollWrapper.addEventListener('scroll', function() {
-                    clearTimeout(scrollWrapper._scrollTimeout);
-                    scrollWrapper._scrollTimeout = setTimeout(() => {
-                        let minDiff = Infinity;
-                        let activeIdx = 0;
-                        const contRect = scrollWrapper.getBoundingClientRect();
-                        const contCenter = contRect.left + contRect.width / 2;
-
-                        slides.forEach((slide, idx) => {
-                            const rect = slide.getBoundingClientRect();
-                            const slideCenter = rect.left + rect.width / 2;
-                            const diff = Math.abs(contCenter - slideCenter);
-                            if (diff < minDiff) {
-                                minDiff = diff;
-                                activeIdx = idx;
-                            }
-                        });
-                        currentSlideIndex = activeIdx;
-                        updateActiveDot(activeIdx);
-                    }, 100);
+                let touchStartX = 0;
+                sliderContainer.addEventListener('touchstart', (e) => {
+                    touchStartX = e.changedTouches[0].screenX;
                 }, { passive: true });
-            }
+
+                sliderContainer.addEventListener('touchend', (e) => {
+                    const diff = touchStartX - e.changedTouches[0].screenX;
+                    if (Math.abs(diff) > 50) {
+                        if (diff > 0) nextSlide();
+                        else prevSlide();
+                        resetAutoPlay();
+                    }
+                });
+
+                document.addEventListener('keydown', (e) => {
+                    if (e.key === 'ArrowRight') {
+                        e.preventDefault();
+                        nextSlide();
+                        resetAutoPlay();
+                    } else if (e.key === 'ArrowLeft') {
+                        e.preventDefault();
+                        prevSlide();
+                        resetAutoPlay();
+                    }
+                });
+
+                function init() {
+                    slidesTrack.style.transform = 'translateX(0%)';
+                    currentIndex = 0;
+                    updateDots();
+                    updateCounter();
+                    isTransitioning = false;
+                    startAutoPlay();
+                }
+
+                init();
+
+                window.addEventListener('beforeunload', () => stopAutoPlay());
+            })();
 
             // ===== APPS BLUR OVERLAY =====
             const appGates = document.querySelectorAll('#bz-luxury-home .bz-app-gate');
