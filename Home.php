@@ -1,3 +1,4 @@
+<?php
 /**
  * Shortcode for Academy Borzouie Custom Homepage
  * Shortcode usage: [bz_home_page]
@@ -403,7 +404,7 @@ function bz_render_home_page_shortcode() {
         .bz-loading-text { color: var(--bz-primary); font-size: 15px; font-weight: 700; text-align: center; line-height: 1.5; }
 
         /* ========== HORIZONTAL ARTICLES SCROLL (REFINED ELONGATED) ========== */
-        .article-horizontal-section {
+        #bz-luxury-home .article-horizontal-section {
             width: 100%;
             max-width: 900px;
             margin: 0 auto;
@@ -411,7 +412,7 @@ function bz_render_home_page_shortcode() {
             padding: 0;
         }
 
-        .article-h-header {
+        #bz-luxury-home .article-h-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -419,17 +420,17 @@ function bz_render_home_page_shortcode() {
             padding: 0 5px;
         }
 
-        .article-h-title-group {
+        #bz-luxury-home .article-h-title-group {
             display: flex;
             align-items: center;
             gap: 8px;
         }
 
-        .article-h-icon {
+        #bz-luxury-home .article-h-icon {
             font-size: 22px;
         }
 
-        .article-h-heading {
+        #bz-luxury-home .article-h-heading {
             margin: 0;
             font-size: 1.2rem;
             color: #0B1C2E;
@@ -437,7 +438,7 @@ function bz_render_home_page_shortcode() {
             line-height: 1.2;
         }
 
-        .article-h-scroll {
+        #bz-luxury-home .article-h-scroll {
             display: flex;
             flex-direction: row;
             overflow-x: auto;
@@ -451,26 +452,26 @@ function bz_render_home_page_shortcode() {
         }
 
         /* اسپيسر انتهاي اسکرول */
-        .article-h-scroll::after {
+        #bz-luxury-home .article-h-scroll::after {
             content: '';
             flex: 0 0 1px;
             width: 1px;
         }
 
-        .article-h-scroll::-webkit-scrollbar {
+        #bz-luxury-home .article-h-scroll::-webkit-scrollbar {
             height: 5px;
         }
-        .article-h-scroll::-webkit-scrollbar-track {
+        #bz-luxury-home .article-h-scroll::-webkit-scrollbar-track {
             background: #f1f1f1;
             border-radius: 10px;
         }
-        .article-h-scroll::-webkit-scrollbar-thumb {
+        #bz-luxury-home .article-h-scroll::-webkit-scrollbar-thumb {
             background: #EF7215;
             border-radius: 10px;
         }
 
         /* کارت‌ها */
-        .article-h-item {
+        #bz-luxury-home .article-h-item {
             flex: 0 0 auto;
             width: 280px;
             min-height: 385px;
@@ -486,16 +487,17 @@ function bz_render_home_page_shortcode() {
             position: relative;
         }
 
-        .article-h-item:hover {
+        #bz-luxury-home .article-h-item:hover {
             transform: translateY(-5px);
             box-shadow: 0 12px 28px rgba(0, 0, 0, 0.09);
             border-color: #EF7215;
         }
 
-        /* عکس کارت - تنظیم حاشیه برای وسط‌چین شدن دقیق */
-        .article-h-image {
+        /* عکس کارت - نسبت ۱:۱ و وسط‌چین دقیق */
+        #bz-luxury-home .article-h-image {
             width: calc(100% - 40px);
-            height: 180px;
+            aspect-ratio: 1 / 1;
+            height: auto;
             margin: 20px auto 14px auto; /* حاشیه اتوماتیک در چپ و راست برای وسط قرار گرفتن */
             border-radius: 14px;
             overflow: hidden;
@@ -507,7 +509,7 @@ function bz_render_home_page_shortcode() {
             flex-shrink: 0;
         }
 
-        .article-h-image img {
+        #bz-luxury-home .article-h-image img {
             width: 100%;
             height: 100%;
             object-fit: cover;
@@ -517,23 +519,23 @@ function bz_render_home_page_shortcode() {
             transition: transform 0.4s ease;
         }
 
-        .article-h-item:hover .article-h-image img {
+        #bz-luxury-home .article-h-item:hover .article-h-image img {
             transform: scale(1.05);
         }
 
         /* بدنه متني با فاصله‌گذاري متناسب و وسط‌چین */
-        .article-h-body {
+        #bz-luxury-home .article-h-body {
             padding: 0 20px 14px 20px; 
             display: flex;
             flex-direction: column;
             gap: 8px;
             flex: 1 1 auto;
             width: 100%;
-            text-align: center; /* تغییر از راست‌چین به وسط‌چین */
+            text-align: center;
             box-sizing: border-box;
         }
 
-        .article-h-title {
+        #bz-luxury-home .article-h-title {
             margin: 0;
             font-size: 0.98rem;
             color: #0B1C2E;
@@ -546,11 +548,11 @@ function bz_render_home_page_shortcode() {
             transition: color 0.2s ease;
         }
 
-        .article-h-item:hover .article-h-title {
+        #bz-luxury-home .article-h-item:hover .article-h-title {
             color: #EF7215;
         }
 
-        .article-h-excerpt {
+        #bz-luxury-home .article-h-excerpt {
             margin: 0;
             font-size: 0.82rem;
             color: #7B8A9B;
@@ -562,18 +564,18 @@ function bz_render_home_page_shortcode() {
         }
 
         /* فوتر دکمه چسبيده به پايين و وسط‌چین */
-        .article-h-footer {
+        #bz-luxury-home .article-h-footer {
             width: 100%;
             border-top: 1px dashed rgba(11, 28, 46, 0.08);
             padding: 12px 20px 16px 20px;
             display: flex;
             align-items: center;
-            justify-content: center; /* تغییر به وسط‌چین برای هماهنگی با متن */
+            justify-content: center;
             box-sizing: border-box;
             margin-top: auto;
         }
 
-        .article-h-btn {
+        #bz-luxury-home .article-h-btn {
             color: #EF7215;
             font-size: 0.85rem;
             font-weight: 700;
@@ -582,26 +584,27 @@ function bz_render_home_page_shortcode() {
             padding: 0;
         }
 
-        .article-h-item:hover .article-h-btn {
+        #bz-luxury-home .article-h-item:hover .article-h-btn {
             color: #EA580C;
-            transform: translateY(-2px); /* تغییر انیمیشن به سمت بالا برای جذابیت در حالت وسط‌چین */
+            transform: translateY(-2px);
         }
 
         /* ريسپانسيو */
         @media (max-width: 768px) {
-            .article-h-item {
+            #bz-luxury-home .article-h-item {
                 width: 250px;
                 min-height: 350px;
             }
-            .article-h-image {
+            #bz-luxury-home .article-h-image {
                 width: calc(100% - 32px);
-                height: 160px;
-                margin: 16px auto 12px auto; /* حاشیه اتوماتیک برای وسط‌چین شدن در موبایل */
+                aspect-ratio: 1 / 1;
+                height: auto;
+                margin: 16px auto 12px auto;
             }
-            .article-h-body {
+            #bz-luxury-home .article-h-body {
                 padding: 0 16px 12px 16px;
             }
-            .article-h-footer {
+            #bz-luxury-home .article-h-footer {
                 padding: 10px 16px 14px 16px;
             }
         }
@@ -742,7 +745,7 @@ function bz_render_home_page_shortcode() {
             <div class="article-horizontal-section">
                 <div class="article-h-header">
                     <div class="article-h-title-group">
-                        <span class="article-h-icon"></span>
+                        <span class="article-h-icon">📚</span>
                         <h2 class="article-h-heading">مقالات سايت</h2>
                     </div>
                 </div>
